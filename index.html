@@ -2741,13 +2741,12 @@
       <span class="num">03</span>
       <span class="name">Problem &rarr; Solution</span>
       <span class="fill"></span>
-      <span class="tag">SIH PROBLEM STATEMENT</span>
+      <span class="tag">IS 10810 &amp; IS 7098 STANDARDS</span>
     </div>
 
     <div class="board-head">
       <h2>The Problem &rarr; Our Solution</h2>
-      <p class="lead">How short-circuit verification is carried out today, and the automated sequence E&#8209;PASS runs
-        from a single operator command.</p>
+      <p class="lead">How manual cable sample preparation introduces dimensional errors and operator dependency, and the automated sequence the Specimen Fabrication System runs from a single HMI test selection.</p>
     </div>
 
     <!-- 1. The Problem Card -->
@@ -2755,16 +2754,16 @@
       <div class="panel-head">
         <span class="eyebrow">CURRENT PRACTICE</span>
         <h3>The Problem</h3>
-        <div class="sub">Conventional / manually assisted testing</div>
+        <div class="sub">Conventional manual sample preparation workflow</div>
       </div>
-      <p class="body">MCB breaking-capacity testing as per IEC 60898-1:2015 requires controlled generation of severe short-circuit conditions with precise voltage, current, impedance (R and X<sub>L</sub>), and power factor values across SP, SPN, DP, TP, and FP ratings (0.5 A to 63 A).</p>
+      <p class="body">Accurate preparation of cable specimens is vital for testing to IS 10810 (Parts 2, 7, 33) and IS 7098 (Parts 1 &amp; 2). Conventional manual workflows involve manual cutting, straightening, insulation peeling, machine slicing, and dumbbell punching.</p>
 
       <div class="markers" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid;">
-        <div class="marker"><span class="mk">MANUAL CONFIGURATION</span><span class="txt">Existing manual methods face challenges in precisely configuring R and X<sub>L</sub> circuit combinations, increasing test time and affecting repeatability.</span></div>
-        <div class="marker crit"><span class="mk">HIGH SAFETY HAZARDS</span><span class="txt">Generation of high fault currents up to 10,000 A introduces severe safety risks to personnel and test equipment when an operator is in the loop.</span></div>
-        <div class="marker"><span class="mk">MULTI-RATING SUPPORT</span><span class="txt">Supporting diverse MCB configurations (SP, SPN, DP, TP, FP) from 0.5 A to 63 A makes manual re-configuration complex and error-prone.</span></div>
-        <div class="marker"><span class="mk">WAVEFORM ANALYSIS GAP</span><span class="txt">Detailed waveform and transient analysis is handled as a separate diagnostic step rather than integrated into the automated test workflow.</span></div>
-        <div class="marker"><span class="mk">DIGITAL TRACEABILITY</span><span class="txt">Maintaining complete digital records of configuration, waveforms, parameters, and daily/weekly test history requires an integrated digital platform.</span></div>
+        <div class="marker"><span class="mk">MANUAL &amp; LABOUR-INTENSIVE</span><span class="txt">Manual cutting, straightening, and stripping require significant operator time and effort for every test sample.</span></div>
+        <div class="marker crit"><span class="mk">DIMENSIONAL &amp; HUMAN ERRORS</span><span class="txt">Inconsistent manual slicing and dumbbell cutting lead to thickness variations and poor test repeatability.</span></div>
+        <div class="marker"><span class="mk">SAFETY HAZARDS</span><span class="txt">Manual blade operation during sheath slitting and insulation stripping introduces severe risk of operator injury.</span></div>
+        <div class="marker"><span class="mk">OPERATOR DEPENDENCY</span><span class="txt">Specimen quality varies significantly between operators, making inter-laboratory reproducibility difficult.</span></div>
+        <div class="marker"><span class="mk">NO INTEGRATED TRACEABILITY</span><span class="txt">Lack of automated parameter logging prevents seamless digital tracking of test sample preparation history.</span></div>
       </div>
     </div>
 
@@ -2772,11 +2771,11 @@
     <div class="solution-block-wrapper">
       <div class="panel-head" style="margin-bottom: 14px;">
         <span class="eyebrow">OUR SOLUTION</span>
-        <h3>E&#8209;PASS System Architecture</h3>
-        <div class="sub">Automated MCB Short-Circuit Test &amp; Hybrid Waveform Analysis Platform</div>
+        <h3>Automated Cable Specimen Preparation System Architecture</h3>
+        <div class="sub">Programmable Sensor-Driven Closed-Loop Specimen Fabrication Platform</div>
       </div>
       <p class="body" style="max-width: 90ch; margin-bottom: 20px;">
-        One operator command initiates the full automated testing sequence. The architecture is organized into 4 connected functional blocks: from HMI parameter configuration and controlled fault generation to high-speed signal capture and AHTA hybrid waveform processing.
+        One HMI test selection (IS 10810 Part 2, 7, 33 or ALL) automatically loads the required preparation recipe. The system executes closed-loop cable feeding, adaptive blade depth cutting, force-position flattening, and multi-axis specimen routing to produce multiple test specimens from a single cable.
       </p>
 
       <!-- 4 Horizontal Stage Blocks -->
@@ -2788,66 +2787,66 @@
             <span class="block-step">BLOCK 01</span>
             <span class="block-tag">INPUT &amp; SAFETY</span>
           </div>
-          <div class="block-title">Control &amp; HMI</div>
-          <div class="block-sub">System interface &amp; safety interlocks</div>
+          <div class="block-title">HMI &amp; Recipe Control</div>
+          <div class="block-sub">Test selection &amp; safety interlocks</div>
           <div class="block-list">
-            <div class="block-list-item"><b>Local Web HMI:</b> Parameter entry (MCB type, rating, target I, V, PF).</div>
-            <div class="block-list-item"><b>R &ndash; X<sub>L</sub> Calculator:</b> Computes Z = V/I, R = Z&middot;PF, X<sub>L</sub> = Z&radic;(1-PF&sup2;).</div>
-            <div class="block-list-item"><b>PLC Safety Layer:</b> Manages safety interlocks, enclosure check, &amp; E-Stop.</div>
-            <div class="block-list-item"><b>STM32 Controller:</b> High-speed trigger &amp; test sequence control.</div>
+            <div class="block-list-item"><b>HMI Selection:</b> IS 10810 Part 2, Part 7, Part 33, or ALL.</div>
+            <div class="block-list-item"><b>Recipe Generator:</b> Auto-loads feed length, blade depth, &amp; force.</div>
+            <div class="block-list-item"><b>Safety Interlocks:</b> E-stop, door guards, &amp; position verification.</div>
+            <div class="block-list-item"><b>Diameter Sensor:</b> Auto-measures cable OD for parameter scaling.</div>
           </div>
-          <div class="block-footer-badge">&rarr; TRIGGERS FAULT STAGE</div>
+          <div class="block-footer-badge">&rarr; TRIGGERS FEED STAGE</div>
         </div>
 
         <!-- BLOCK 02 -->
         <div class="block-card">
           <div class="block-header">
             <span class="block-step">BLOCK 02</span>
-            <span class="block-tag">POWER CIRCUIT</span>
+            <span class="block-tag">FEED &amp; STRIPPING</span>
           </div>
-          <div class="block-title">Power Stage</div>
-          <div class="block-sub">Impedance &amp; fault switching</div>
+          <div class="block-title">Closed-Loop Feeding</div>
+          <div class="block-sub">Adaptive positioning &amp; precision cutting</div>
           <div class="block-list">
-            <div class="block-list-item"><b>Isolated AC Source:</b> Current-limited supply for safe validation.</div>
-            <div class="block-list-item"><b>Selectable R &ndash; X<sub>L</sub> Bank:</b> Automated resistor &amp; inductor step selection.</div>
-            <div class="block-list-item"><b>Schneider Contactor:</b> LC1D18B7 for controlled fault initiation.</div>
-            <div class="block-list-item"><b>Test Fixture:</b> Universal mounting for SP, DP, TP, FP MCBs (0.5A&ndash;63A).</div>
+            <div class="block-list-item"><b>Servo Cable Feed:</b> PID position &amp; speed control via encoder.</div>
+            <div class="block-list-item"><b>Roller Slip Sensing:</b> Independent measuring encoder slip alarm.</div>
+            <div class="block-list-item"><b>Adaptive Blade Depth:</b> Servo linear actuator depth positioning.</div>
+            <div class="block-list-item"><b>Conductor Protection:</b> Contact sensing &amp; emergency retraction.</div>
           </div>
-          <div class="block-footer-badge">&rarr; GENERATES WAVEFORM</div>
+          <div class="block-footer-badge">&rarr; FEEDS FLATTENING STAGE</div>
         </div>
 
         <!-- BLOCK 03 -->
         <div class="block-card">
           <div class="block-header">
             <span class="block-step">BLOCK 03</span>
-            <span class="block-tag">HIGH-SPEED SAMPLING</span>
+            <span class="block-tag">FLATTENING &amp; ROUTING</span>
           </div>
-          <div class="block-title">Acquisition</div>
-          <div class="block-sub">Sensing &amp; DMA transfer</div>
+          <div class="block-title">Material Processing</div>
+          <div class="block-sub">Force-position control &amp; 2D contouring</div>
           <div class="block-list">
-            <div class="block-list-item"><b>WCS1700 Sensor:</b> Hall-effect current waveform sensing.</div>
-            <div class="block-list-item"><b>Voltage Sensor:</b> Isolated voltage waveform conditioning.</div>
-            <div class="block-list-item"><b>Butterworth Filter:</b> High-frequency noise suppression.</div>
-            <div class="block-list-item"><b>STM32 ADC + DMA:</b> Continuous zero-CPU circular memory buffer.</div>
+            <div class="block-list-item"><b>Cascade Flattening:</b> Outer position loop + inner force loop.</div>
+            <div class="block-list-item"><b>Insulation Pressing:</b> Servo press flattens sheath to target gauge.</div>
+            <div class="block-list-item"><b>Multi-Axis Routing:</b> Synchronized master-slave specimen path.</div>
+            <div class="block-list-item"><b>Part-7 Dumbbell:</b> Precision trajectory tracking contour cutter.</div>
           </div>
-          <div class="block-footer-badge">&rarr; FEEDS AHTA ENGINE</div>
+          <div class="block-footer-badge">&rarr; FEEDS QUALITY STAGE</div>
         </div>
 
         <!-- BLOCK 04 -->
         <div class="block-card">
           <div class="block-header">
             <span class="block-step">BLOCK 04</span>
-            <span class="block-tag">HYBRID ANALYSIS</span>
+            <span class="block-tag">QUALITY &amp; EJECTION</span>
           </div>
-          <div class="block-title">AHTA Engine</div>
-          <div class="block-sub">Feature fusion &amp; digital report</div>
+          <div class="block-title">Verification &amp; Output</div>
+          <div class="block-sub">Sensor fusion &amp; digital logging</div>
           <div class="block-list">
-            <div class="block-list-item"><b>Fourier Series (FFS):</b> 50 Hz fundamental &amp; harmonic spectrum.</div>
-            <div class="block-list-item"><b>Inverse Fourier (IFFS):</b> Baseline reference waveform reconstruction.</div>
-            <div class="block-list-item"><b>Wavelet (DWT):</b> Transient localization (inception, peak, arc collapse).</div>
-            <div class="block-list-item"><b>Feature Fusion:</b> I<sub>p</sub>, I<sub>RMS</sub>, I&sup2;t, dI/dt, t<sub>trip</sub>, PF evaluation.</div>
+            <div class="block-list-item"><b>Sensor Fusion:</b> Laser/optical &amp; encoder dimension verification.</div>
+            <div class="block-list-item"><b>Quality Gate:</b> Tolerance check for PASS / FAIL classification.</div>
+            <div class="block-list-item"><b>Automated Ejection:</b> Specimen output routing &amp; waste ejection.</div>
+            <div class="block-list-item"><b>Digital Logging:</b> Cycle parameter &amp; standard compliance log.</div>
           </div>
-          <div class="block-footer-badge">IEC 60898-1 &rarr; PASS / FAIL</div>
+          <div class="block-footer-badge">IS 10810 / IS 7098 &rarr; PASSED SPECIMEN</div>
         </div>
 
       </div>
@@ -2855,20 +2854,20 @@
       <!-- Horizontal Spec Summary Bar -->
       <div class="horizontal-spec-bar">
         <div class="spec-box">
-          <span class="k">ELECTRICAL SOURCE</span>
-          <span class="v">24 V AC Isolated Bench Source (Current-Limited)</span>
+          <span class="k">APPLICABLE STANDARDS</span>
+          <span class="v">IS 10810 (Parts 2, 7, 33) &bull; IS 7098 (Parts 1 &amp; 2)</span>
         </div>
         <div class="spec-box">
-          <span class="k">SWITCHING &amp; CONTROL</span>
-          <span class="v">Schneider LC1D18B7 Contactor &bull; STM32F401RE + PLC</span>
+          <span class="k">CONTROL ARCHITECTURE</span>
+          <span class="v">Industrial PLC &bull; Touch HMI &bull; Multi-Axis Servo &bull; PID Loops</span>
         </div>
         <div class="spec-box">
-          <span class="k">WAVEFORM CAPTURE</span>
-          <span class="v">WCS1700 Hall Sensor &bull; ADC + DMA High-Speed Buffer</span>
+          <span class="k">SENSOR FUSION</span>
+          <span class="v">Dual Encoders &bull; Load Cell &bull; Laser Gauge &bull; Conductor Detector</span>
         </div>
         <div class="spec-box">
-          <span class="k">ANALYSIS &amp; TARGET</span>
-          <span class="v">AHTA Engine &bull; 10 kA Class Target (IEC 60898-1)</span>
+          <span class="k">KEY CAPABILITY</span>
+          <span class="v">1 Cable &rarr; Multi-Specimen Fabrication &bull; Auto-Eject &amp; Log</span>
         </div>
       </div>
     </div>

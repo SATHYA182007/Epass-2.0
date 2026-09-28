@@ -1,0 +1,3451 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Team E-PASS</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  /* ==========================================================================
+   TEAM E-PASS — Smart India Hackathon project showcase
+   Automated MCB Short-Circuit Test & Analysis Platform
+
+   PRIMARY AUDIENCE
+   SIH evaluation panel — judges, faculty mentors and industry experts
+   reviewing the project during or shortly after the exhibition. They scan
+   in short interrupted looks, so each section answers one question at a
+   glance: who we are / what problem / how it works / what exists already.
+   Secondary: fellow students and recruiters, who scroll properly later.
+
+   VISUAL BALANCE
+   40% SIH identity · 30% engineering · 20% modern UI · 10% retro character
+   Soft corners, tinted shadows, generous spacing, blue/orange restraint.
+
+   RESPONSIVE BREAKPOINTS
+   1100px — build log 3 -> 2 columns, team 3 -> 2 columns
+    960px — problem/solution panels unstack, spec strip reflows
+    720px — nav collapses to menu, all grids -> 1 column
+    520px — compact monitor, smaller type scale, plate photos shrink
+   ========================================================================== */
+
+  :root {
+    /* surfaces — warm white and very light blue-grey */
+    --bg: #FBFAF7;
+    --surface: #FFFFFF;
+    --surface-2: #F2F5F9;
+    --surface-3: #E8EEF6;
+
+    /* SIH blue — identity */
+    --blue: #17518C;
+    --blue-deep: #0F3A67;
+    --blue-mid: #3B77B4;
+    --blue-soft: #DCE8F4;
+
+    /* navy / text */
+    --navy: #152033;
+    --ink: #1D2738;
+    --ink-2: #4A5568;
+    --ink-3: #78849A;
+
+    /* SIH orange — accent, used sparingly */
+    --orange: #DB6B1E;
+    --orange-br: #F08A34;
+    --orange-soft: #FDF0E4;
+
+    /* SIH green — sampled from the official mark (#149447) */
+    --green: #0E7A3A;
+    /* text / pills: 5.4:1 on white */
+    --green-br: #149447;
+    /* authentic mark green: lamps, indicators */
+    --green-soft: #E4F2E9;
+
+    /* warning only */
+    --red: #C0392B;
+    --red-soft: #FBEBE9;
+
+    /* structure */
+    --line: #E2E7EE;
+    --line-2: #CFD8E4;
+
+    /* screen */
+    --screen: #0D1420;
+    --trace: #F08A34;
+
+    /* radius scale */
+    --r-xs: 6px;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 22px;
+    --r-pill: 999px;
+
+    /* soft, blue-tinted depth */
+    --sh-1: 0 1px 2px rgba(21, 32, 51, .05), 0 2px 8px rgba(23, 81, 140, .05);
+    --sh-2: 0 2px 4px rgba(21, 32, 51, .05), 0 8px 20px rgba(23, 81, 140, .08);
+    --sh-3: 0 6px 12px rgba(21, 32, 51, .07), 0 16px 34px rgba(23, 81, 140, .13);
+
+    --ease: cubic-bezier(.22, .68, .34, 1);
+
+    --max: 1180px;
+    --s1: 6px;
+    --s2: 12px;
+    --s3: 20px;
+    --s4: 32px;
+    --s5: 56px;
+    --s6: 84px;
+
+    color-scheme: light;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+    font-weight: 500;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: .015em;
+  }
+
+  a {
+    color: var(--blue);
+  }
+
+  .lbl {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 10.5px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .lbl-o {
+    color: var(--orange);
+  }
+
+  .lbl-b {
+    color: var(--blue);
+  }
+
+  /* ==========================================================================
+   OPENING TRANSITION — SIH mark splits down its own centre line
+   The logo is already divided orange|green at the middle, so the seam of the
+   split falls exactly there: the two halves part like contacts opening.
+   The page beneath is fully rendered throughout; this only covers it.
+   ========================================================================== */
+  html.intro-lock,
+  html.intro-lock body {
+    overflow-x: hidden;
+  }
+
+  .intro {
+    display: none !important;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+  }
+
+  .intro.done {
+    pointer-events: none;
+  }
+
+  /* two shutters meeting at the vertical midline */
+  .intro-half {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #FFFFFF;
+    will-change: transform;
+    transition: transform .9s cubic-bezier(.66, .02, .28, 1);
+  }
+
+  .intro-half.l {
+    left: 0;
+    width: calc(50% + 1px);
+  }
+
+  /* 1px overlap closes the seam */
+  .intro-half.r {
+    right: 0;
+    width: 50%;
+  }
+
+  .intro.done .intro-half.l {
+    transform: translateX(-100%);
+  }
+
+  .intro.done .intro-half.r {
+    transform: translateX(100%);
+  }
+
+  /* each shutter holds the whole mark, offset so the two align into one logo */
+  .intro-half img {
+    position: absolute;
+    top: 50%;
+    width: var(--logo-w);
+    height: auto;
+    transform: translateY(-50%);
+    opacity: 0;
+    animation: introLogo .85s var(--ease) .12s forwards;
+  }
+
+  .intro-half.l img {
+    right: calc(var(--logo-half) * -1 + 1px);
+  }
+
+  .intro-half.r img {
+    left: calc(var(--logo-half) * -1);
+  }
+
+  @keyframes introLogo {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* the parting line itself */
+  .intro-seam {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 2px;
+    height: calc(var(--logo-w) * 1.3);
+    transform: translate(-50%, -50%) scaleY(.15);
+    transform-origin: center;
+    background: linear-gradient(180deg, transparent 0%, var(--blue) 26%, var(--orange) 74%, transparent 100%);
+    opacity: 0;
+    animation: seamIn .55s var(--ease) 1.15s forwards;
+  }
+
+  @keyframes seamIn {
+    to {
+      opacity: .9;
+      transform: translate(-50%, -50%) scaleY(1);
+    }
+  }
+
+  .intro.done .intro-seam {
+    opacity: 0;
+    transition: opacity .3s var(--ease);
+  }
+
+  .intro-meta {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: max(11vh, 74px);
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: 13px;
+    padding: 0 24px;
+    opacity: 0;
+    animation: introMeta .6s var(--ease) .6s forwards;
+  }
+
+  @keyframes introMeta {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .intro.done .intro-meta {
+    opacity: 0;
+    transition: opacity .3s var(--ease);
+  }
+
+  .intro-line {
+    display: block;
+    width: min(300px, 62vw);
+    height: 3px;
+    border-radius: 3px;
+    background: rgba(21, 32, 51, .12);
+    overflow: hidden;
+  }
+
+  .intro-line i {
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--orange) 62%, var(--green-br));
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: introBar 1.25s var(--ease) .5s forwards;
+  }
+
+  @keyframes introBar {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .intro-tag {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 10.5px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #4A5568;
+    text-align: center;
+  }
+
+  .intro-skip {
+    position: absolute;
+    z-index: 3;
+    right: 22px;
+    bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+    background: rgba(21, 32, 51, .05);
+    border: 1px solid rgba(21, 32, 51, .14);
+    border-radius: 999px;
+    color: #4A5568;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 10px;
+    letter-spacing: .16em;
+    padding: 8px 16px;
+    opacity: 0;
+    animation: introMeta .5s var(--ease) 1s forwards;
+    transition: background .25s var(--ease), color .25s var(--ease);
+  }
+
+  .intro-skip:hover,
+  .intro-skip:focus-visible {
+    background: var(--blue);
+    color: #fff;
+    outline: none;
+  }
+
+  .intro.done .intro-skip {
+    opacity: 0;
+    transition: opacity .25s var(--ease);
+  }
+
+  @media (max-width: 520px) {
+    .intro {
+      --logo-w: min(300px, 70vw);
+    }
+
+    .intro-meta {
+      bottom: max(9vh, 60px);
+    }
+
+    .intro-skip {
+      right: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  /* no intro at all when motion is reduced — the page is simply there */
+  @media (prefers-reduced-motion: reduce) {
+    .intro {
+      display: none;
+    }
+  }
+
+  /* ==========================================================================
+   NAVIGATION — floating rounded container
+   ========================================================================== */
+  .rail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 60;
+    padding: 12px 16px;
+  }
+
+  .rail-in {
+    max-width: var(--max);
+    margin: 0 auto;
+    background: var(--blue);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-2);
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    padding: 9px 10px 9px 16px;
+    transition: box-shadow .3s var(--ease), background .3s var(--ease);
+  }
+
+  .rail.stuck .rail-in {
+    background: var(--blue-deep);
+    box-shadow: var(--sh-3);
+  }
+
+  .brand-logo {
+    display: block;
+    flex: none;
+    line-height: 0;
+    background: #fff;
+    border-radius: var(--r-sm);
+    padding: 6px 11px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .16);
+    transition: transform .25s var(--ease);
+    margin-left: auto;
+  }
+
+  .brand-logo:hover {
+    transform: translateY(-1px);
+  }
+
+  .brand-logo img {
+    display: block;
+    height: 24px;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .site-logo {
+    display: block;
+    flex: none;
+    line-height: 0;
+    transition: transform .25s var(--ease);
+  }
+
+  .site-logo:hover {
+    transform: translateY(-1px);
+  }
+
+  .site-logo img {
+    display: block;
+    height: 26px;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nav a {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 13px;
+    border-radius: var(--r-sm);
+    color: #C6DBEC;
+    text-decoration: none;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    transition: background .25s var(--ease), color .25s var(--ease);
+  }
+
+  .nav a .n {
+    color: var(--orange-br);
+    font-weight: 600;
+    transition: color .25s var(--ease);
+  }
+
+  .nav a:hover,
+  .nav a:focus-visible {
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    outline: none;
+  }
+
+  .nav a.on {
+    background: #fff;
+    color: var(--blue-deep);
+  }
+
+  .nav a.on .n {
+    color: var(--orange);
+  }
+
+  .rail-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px 0 14px;
+    margin-left: 4px;
+    border-left: 1px solid rgba(255, 255, 255, .2);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: #A9CBE8;
+  }
+
+  .lamp {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--green-br);
+    box-shadow: 0 0 0 3px rgba(20, 148, 71, .22);
+    animation: lampPulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes lampPulse {
+
+    0%,
+    100% {
+      opacity: 1
+    }
+
+    60% {
+      opacity: .45
+    }
+  }
+
+  .egg-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: help;
+    letter-spacing: inherit;
+  }
+
+  .rail-toggle {
+    display: none;
+    background: rgba(255, 255, 255, .12);
+    border: 0;
+    color: #fff;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: .1em;
+    padding: 9px 13px;
+    transition: background .25s var(--ease);
+  }
+
+  .rail-toggle:hover {
+    background: rgba(255, 255, 255, .2);
+  }
+
+  /* ==========================================================================
+   SHELL
+   ========================================================================== */
+  .wrap {
+    padding: 0 var(--s3);
+  }
+
+  .board {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-block: var(--s6) var(--s5);
+    scroll-margin-top: 92px;
+  }
+
+  #s01 {
+    padding-top: 116px;
+  }
+
+  /* section marker — rounded pill row */
+  .secmark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: var(--s3);
+    flex-wrap: wrap;
+  }
+
+  .secmark .num {
+    background: var(--orange);
+    color: #fff;
+    border-radius: var(--r-sm);
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 4px 12px;
+    letter-spacing: .06em;
+  }
+
+  .secmark .name {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .secmark .fill {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    min-width: 16px;
+  }
+
+  .secmark .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: .13em;
+    color: var(--ink-3);
+    background: var(--surface-2);
+    border-radius: var(--r-pill);
+    padding: 5px 13px;
+    white-space: nowrap;
+  }
+
+  .board-head {
+    margin-bottom: var(--s4);
+  }
+
+  .board-head h2 {
+    font-size: clamp(28px, 4.6vw, 44px);
+    text-transform: uppercase;
+    line-height: 1.04;
+    color: var(--navy);
+  }
+
+  .board-head .lead {
+    margin: 11px 0 0;
+    font-size: 15px;
+    color: var(--ink-2);
+    max-width: 66ch;
+  }
+
+  .board-head .subhead {
+    margin-top: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  /* ==========================================================================
+   SECTION 01 — EXHIBITION HEADER + TEAM
+   ========================================================================== */
+  .exhibit {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-2);
+    overflow: hidden;
+    margin-bottom: var(--s5);
+  }
+
+  .exhibit-strip {
+    background: var(--blue);
+    color: #fff;
+    padding: 12px 26px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .exhibit-strip .ticks {
+    margin-left: auto;
+    display: flex;
+    gap: 5px;
+  }
+
+  .exhibit-strip .ticks i {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--orange-br);
+    display: block;
+  }
+
+  .exhibit-strip .ticks i:nth-child(2) {
+    background: rgba(255, 255, 255, .85);
+  }
+
+  .exhibit-strip .ticks i:nth-child(3) {
+    background: var(--green-br);
+  }
+
+  .exhibit-body {
+    padding: var(--s5) 26px var(--s4);
+  }
+
+  .exhibit-body h1 {
+    font-family: Oswald, Arial, sans-serif;
+    font-weight: 700;
+    font-size: clamp(48px, 10.5vw, 104px);
+    line-height: .9;
+    color: var(--navy);
+    margin: 0;
+  }
+
+  .exhibit-body .full {
+    margin: 12px 0 0;
+    font-size: clamp(15px, 2.1vw, 21px);
+    font-family: Oswald, Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: .03em;
+    color: var(--blue);
+    text-transform: uppercase;
+  }
+
+  .exhibit-body .idline {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--orange-soft);
+    color: var(--orange);
+    border-radius: var(--r-pill);
+    padding: 7px 15px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .13em;
+    font-weight: 600;
+  }
+
+  .exhibit-body .idline i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: block;
+  }
+
+  .specstrip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background: var(--surface-2);
+    border-top: 1px solid var(--line);
+  }
+
+  .specstrip div {
+    padding: 14px 22px;
+    border-right: 1px solid var(--line);
+  }
+
+  .specstrip div:last-child {
+    border-right: 0;
+  }
+
+  .specstrip b {
+    display: block;
+    margin-top: 3px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    color: var(--blue);
+  }
+
+  /* team cards */
+  .crew {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s3);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sh-3);
+    border-color: var(--blue-soft);
+  }
+
+  .card-accent {
+    height: 4px;
+    background: var(--orange);
+  }
+
+  /* small orange accent line */
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 11px 16px 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    color: var(--ink-3);
+  }
+
+  .card-top .role-tag {
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-weight: 600;
+    border-radius: var(--r-pill);
+    padding: 3px 10px;
+  }
+
+  .card-body {
+    display: flex;
+    gap: 14px;
+    padding: 13px 16px 16px;
+    align-items: flex-start;
+  }
+
+  .portrait {
+    width: 76px;
+    height: 94px;
+    flex: none;
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    overflow: hidden;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8.5px;
+    letter-spacing: .08em;
+    color: var(--ink-3);
+  }
+
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+    display: block;
+  }
+
+  .fields {
+    min-width: 0;
+    flex: 1;
+    display: grid;
+    gap: 9px;
+  }
+
+  .card-logo {
+    height: 20px;
+    width: auto;
+    max-width: 110px;
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .field {
+    display: grid;
+    gap: 2px;
+  }
+
+  .field .v {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+    overflow-wrap: break-word;
+  }
+
+  .field .v.name {
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    color: var(--navy);
+  }
+
+  .card-note {
+    margin-top: auto;
+    background: var(--surface-2);
+    border-top: 1px solid var(--line);
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+
+  .card-note::before {
+    content: "▸ ";
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  /* mentors — lighter, distinct from members */
+  .sub-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: var(--s5) 0 var(--s3);
+    flex-wrap: wrap;
+  }
+
+  .sub-head h3 {
+    font-size: 20px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  .sub-head .bar {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    min-width: 20px;
+  }
+
+  .mentors {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 380px));
+    justify-content: center;
+    gap: var(--s3);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .mentor-body {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 6px;
+  }
+
+  .mentor {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 20px;
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+  }
+
+  .mentor:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sh-2);
+    background: var(--surface);
+  }
+
+  .mentor .mno {
+    justify-self: start;
+    background: var(--blue);
+    color: #fff;
+    border-radius: var(--r-pill);
+    padding: 4px 12px;
+    margin-bottom: 4px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: .16em;
+    font-weight: 600;
+  }
+
+  .mentor .mname {
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 21px;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    color: var(--navy);
+  }
+
+  .mentor .marea {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  /* ==========================================================================
+   SECTION 02 — PROBLEM -> SOLUTION
+   ========================================================================== */
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s3);
+  }
+
+  .panel {
+    border-radius: var(--r-xl);
+    padding: var(--s4);
+    border: 1px solid var(--line);
+    box-shadow: var(--sh-1);
+    min-width: 0;
+  }
+
+  .panel.problem {
+    background: var(--surface);
+  }
+
+  .panel.solution {
+    background: var(--surface-2);
+    border-color: var(--blue-soft);
+  }
+
+  .panel-head {
+    margin-bottom: var(--s3);
+  }
+
+  .panel-head .eyebrow {
+    display: inline-block;
+    border-radius: var(--r-pill);
+    padding: 4px 12px;
+    margin-bottom: 10px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: .15em;
+    font-weight: 600;
+    background: var(--surface-2);
+    color: var(--ink-3);
+  }
+
+  .panel.solution .panel-head .eyebrow {
+    background: var(--orange-soft);
+    color: var(--orange);
+  }
+
+  .panel-head h3 {
+    font-size: clamp(23px, 3vw, 30px);
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1.06;
+  }
+
+  .panel-head .sub {
+    margin-top: 5px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  .panel p.body {
+    margin: 0 0 var(--s3);
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+
+  /* rounded flow nodes */
+  .chain {
+    display: grid;
+    margin: var(--s3) 0;
+  }
+
+  .node {
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-md);
+    padding: 11px 15px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--ink);
+    transition: box-shadow .3s var(--ease), transform .3s var(--ease);
+  }
+
+  .node:hover {
+    box-shadow: var(--sh-1);
+    transform: translateX(2px);
+  }
+
+  .node .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--line-2);
+  }
+
+  .node .tag {
+    margin-left: auto;
+    font-size: 9.5px;
+    letter-spacing: .09em;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .chain.sol .node {
+    border-color: var(--blue-soft);
+  }
+
+  .chain.sol .node .dot {
+    background: var(--blue-mid);
+  }
+
+  .node.key {
+    background: var(--blue);
+    border-color: var(--blue-deep);
+    color: #fff;
+    box-shadow: var(--sh-1);
+  }
+
+  .node.key .dot {
+    background: var(--orange-br);
+  }
+
+  .node.key .tag {
+    color: #A9CBE8;
+  }
+
+  .node.key.result .dot {
+    background: var(--green-br);
+  }
+
+  .node.key.result .tag {
+    color: #8FD6A8;
+  }
+
+  .node.fault {
+    background: var(--red-soft);
+    border-color: rgba(192, 57, 43, .32);
+  }
+
+  .node.fault .dot {
+    background: var(--red);
+  }
+
+  .node.fault .tag {
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .node.flag .dot {
+    background: var(--orange);
+  }
+
+  .node.flag .tag {
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  .link {
+    height: 22px;
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--line-2);
+  }
+
+  .chain.sol .link::before {
+    background: var(--blue-soft);
+  }
+
+  .pip {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--orange-br);
+    box-shadow: 0 0 0 3px rgba(240, 138, 52, .18);
+    opacity: 0;
+    animation: travel 3s var(--ease) infinite;
+  }
+
+  @keyframes travel {
+    0% {
+      transform: translateY(-13px);
+      opacity: 0;
+    }
+
+    18% {
+      opacity: 1;
+    }
+
+    82% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(13px);
+      opacity: 0;
+    }
+  }
+
+  .markers {
+    display: grid;
+    gap: 8px;
+    margin-top: var(--s3);
+  }
+
+  .marker {
+    display: flex;
+    gap: 11px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    background: var(--orange-soft);
+    border-radius: var(--r-md);
+    padding: 10px 14px;
+  }
+
+  .marker .mk {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: .11em;
+    color: var(--orange);
+    white-space: nowrap;
+  }
+
+  .marker .txt {
+    font-size: 13px;
+    color: var(--ink-2);
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .marker.crit {
+    background: var(--red-soft);
+  }
+
+  .marker.crit .mk {
+    color: var(--red);
+  }
+
+  .spec {
+    margin-top: var(--s3);
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 7px;
+  }
+
+  .spec-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+  }
+
+  .spec-row .k {
+    color: var(--ink-3);
+    letter-spacing: .07em;
+    min-width: 136px;
+  }
+
+  .spec-row .v {
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* AHTA */
+  .ahta {
+    margin-top: var(--s3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-1);
+    overflow: hidden;
+  }
+
+  .ahta-top {
+    background: var(--navy);
+    color: #fff;
+    padding: 16px 26px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .ahta-top h4 {
+    font-size: 23px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .ahta-top .exp {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: .13em;
+    color: var(--orange-br);
+  }
+
+  .ahta-in {
+    padding: var(--s4) 26px;
+  }
+
+  .ahta-in>p {
+    margin: 0 0 var(--s3);
+    font-size: 14px;
+    color: var(--ink-2);
+    max-width: 78ch;
+  }
+
+  .branches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s2);
+  }
+
+  .branch {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 18px;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+
+  .branch:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sh-2);
+  }
+
+  .branch h5 {
+    margin: 6px 0 7px;
+    font-size: 17px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 500;
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    flex-wrap: wrap;
+  }
+
+  .branch p {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .fuse {
+    margin-top: var(--s3);
+    padding: 14px 18px;
+    border-radius: var(--r-md);
+    background: var(--blue);
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: .07em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: center;
+  }
+
+  .fuse b {
+    color: var(--orange-br);
+    font-weight: 600;
+  }
+
+  .warn {
+    margin-top: var(--s3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--red-soft);
+    border-radius: var(--r-pill);
+    padding: 8px 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .11em;
+    color: var(--red);
+  }
+
+  .ohm {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .09em;
+    color: var(--ink-3);
+  }
+
+  /* Horizontal Block Diagram Layout for Solution */
+  .solution-block-wrapper {
+    margin-top: var(--s3);
+    background: var(--surface-2);
+    border: 1px solid var(--blue-soft);
+    border-radius: var(--r-xl);
+    padding: var(--s4);
+    box-shadow: var(--sh-1);
+  }
+
+  .horizontal-block-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 22px 0;
+  }
+
+  .block-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--sh-1);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+
+  .block-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sh-2);
+    border-color: var(--blue-soft);
+  }
+
+  .block-card.highlight {
+    background: #0f1c2e;
+    color: #fff;
+    border-color: var(--blue);
+  }
+
+  .block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .block-card.highlight .block-header {
+    border-bottom-color: rgba(255,255,255,0.15);
+  }
+
+  .block-step {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: .12em;
+    font-weight: 600;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+
+  .block-card.highlight .block-step {
+    color: var(--orange-br);
+  }
+
+  .block-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8.5px;
+    padding: 2px 7px;
+    border-radius: var(--r-pill);
+    background: var(--blue-soft);
+    color: var(--blue);
+    letter-spacing: .08em;
+  }
+
+  .block-card.highlight .block-tag {
+    background: rgba(255,255,255,0.15);
+    color: #8FD6A8;
+  }
+
+  .block-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+
+  .block-card.highlight .block-title {
+    color: #fff;
+  }
+
+  .block-sub {
+    font-size: 11.5px;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+
+  .block-card.highlight .block-sub {
+    color: rgba(255,255,255,0.7);
+  }
+
+  .block-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .block-card.highlight .block-list {
+    color: rgba(255,255,255,0.9);
+  }
+
+  .block-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    line-height: 1.35;
+  }
+
+  .block-list-item::before {
+    content: "▸";
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .block-card.highlight .block-list-item::before {
+    color: var(--orange-br);
+  }
+
+  .block-footer-badge {
+    margin-top: auto;
+    padding-top: 12px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: .06em;
+  }
+
+  .block-card.highlight .block-footer-badge {
+    color: #8FD6A8;
+  }
+
+  .horizontal-spec-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  .spec-box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 10px 14px;
+  }
+
+  .spec-box .k {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .11em;
+    color: var(--ink-3);
+    margin-bottom: 3px;
+  }
+
+  .spec-box .v {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  @media (max-width: 992px) {
+    .horizontal-block-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .horizontal-spec-bar {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .horizontal-block-grid {
+      grid-template-columns: 1fr;
+    }
+    .horizontal-spec-bar {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ==========================================================================
+   SECTION 04 — SEE E-PASS WORK SHOWCASE
+   ========================================================================== */
+  .case-study-showcase {
+    position: relative;
+    background: #0B1320;
+    border: 1px solid rgba(59, 119, 180, 0.25);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(15, 32, 51, 0.25), 0 2px 10px rgba(23, 81, 140, 0.1);
+    margin-top: var(--s3);
+  }
+
+  .showcase-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    background: rgba(15, 26, 44, 0.95);
+    border-bottom: 1px solid rgba(226, 231, 238, 0.1);
+    backdrop-filter: blur(12px);
+    flex-wrap: wrap;
+  }
+
+  .bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: #4ADE80;
+    background: rgba(74, 222, 128, 0.12);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+  }
+
+  .dot-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ADE80;
+    box-shadow: 0 0 8px #4ADE80;
+    animation: pulse 1.8s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(1.3); }
+  }
+
+  .step-badge {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: var(--orange-br);
+    background: rgba(240, 138, 52, 0.12);
+    border: 1px solid rgba(240, 138, 52, 0.25);
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+  }
+
+  .bar-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+    letter-spacing: .01em;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .bar-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: all .2s var(--ease);
+  }
+
+  .sc-btn:hover {
+    background: var(--blue-mid);
+    border-color: var(--blue-soft);
+    transform: translateY(-1px);
+  }
+
+  .sc-btn.play-btn {
+    padding: 6px 10px;
+  }
+
+  .slider-viewport {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    max-height: 600px;
+    background: #070D18;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 16px;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .4s ease, transform .4s ease;
+    transform: scale(0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide img {
+    max-width: 100%;
+    max-height: 540px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--r-md);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+    background: #050B14;
+  }
+
+  /* Thumbnails Container */
+  .showcase-thumbs {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 14px;
+    background: #09111D;
+    border-top: 1px solid rgba(226, 231, 238, 0.08);
+  }
+
+  .thumb-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--r-sm);
+    padding: 6px;
+    cursor: pointer;
+    text-align: left;
+    transition: all .2s var(--ease);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .thumb-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(240, 138, 52, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .thumb-card.active {
+    background: rgba(240, 138, 52, 0.12);
+    border-color: var(--orange-br);
+    box-shadow: 0 0 12px rgba(240, 138, 52, 0.25);
+  }
+
+  .thumb-img-wrap {
+    width: 100%;
+    height: 48px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .thumb-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .75;
+    transition: opacity .2s;
+  }
+
+  .thumb-card:hover .thumb-img-wrap img,
+  .thumb-card.active .thumb-img-wrap img {
+    opacity: 1;
+  }
+
+  .thumb-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .thumb-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--orange-br);
+    background: rgba(0,0,0,0.3);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .thumb-lbl {
+    font-size: 10px;
+    font-weight: 500;
+    color: #CBD5E1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .thumb-card.active .thumb-lbl {
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+
+  @media (max-width: 960px) {
+    .showcase-thumbs {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .showcase-thumbs {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 18px;
+    }
+    .thumb-card {
+      min-width: 120px;
+      scroll-snap-align: start;
+    }
+    .slider-viewport {
+      min-height: 280px;
+    }
+  }
+   ========================================================================== */
+  .monitor {
+    background: var(--blue);
+    border-radius: var(--r-xl);
+    padding: 20px;
+    box-shadow: var(--sh-3);
+    position: relative;
+  }
+
+  .mon-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 0 6px 15px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .13em;
+    color: #A9CBE8;
+  }
+
+  .nameplate {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+    border-radius: var(--r-pill);
+    padding: 5px 14px;
+    font-weight: 600;
+    letter-spacing: .18em;
+  }
+
+  .rec {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #F3BE93;
+  }
+
+  .rec i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--orange-br);
+    display: block;
+    box-shadow: 0 0 0 3px rgba(240, 138, 52, .25);
+    animation: lampPulse 2s ease-in-out infinite;
+  }
+
+  .mon-top .active {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .mon-top .active i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green-br);
+    display: block;
+    box-shadow: 0 0 0 3px rgba(20, 148, 71, .22);
+  }
+
+  .screen {
+    position: relative;
+    background: var(--screen);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    max-width: 100%;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07);
+  }
+
+  .screen canvas,
+  .screen iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+  }
+
+  .vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: var(--r-lg);
+    box-shadow: inset 0 0 90px rgba(0, 0, 0, .5);
+  }
+
+  .osd {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    top: 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    pointer-events: none;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .11em;
+    color: var(--orange-br);
+  }
+
+  .osd .r {
+    color: #8199B8;
+  }
+
+  .playbar {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .playbtn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .3);
+    border-radius: var(--r-pill);
+    padding: 11px 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background .28s var(--ease), transform .28s var(--ease), border-color .28s var(--ease);
+  }
+
+  .playbtn:hover,
+  .playbtn:focus-visible {
+    background: var(--orange);
+    border-color: var(--orange);
+    transform: translateY(-2px);
+    outline: none;
+  }
+
+  .playbtn .tri {
+    width: 0;
+    height: 0;
+    border-left: 8px solid currentColor;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+
+  .strip {
+    margin-top: 14px;
+    border-radius: var(--r-md);
+    background: rgba(0, 0, 0, .24);
+    height: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .strip canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .strip .slbl {
+    position: absolute;
+    left: 14px;
+    top: 7px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .13em;
+    color: #7E9AB9;
+  }
+
+  .mon-bottom {
+    display: flex;
+    align-items: center;
+    gap: 12px 20px;
+    flex-wrap: wrap;
+    padding: 15px 6px 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    color: #A9CBE8;
+  }
+
+  .knob {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .knob i {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    background: rgba(255, 255, 255, .12);
+  }
+
+  .knob i::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 3px;
+    width: 2px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--orange-br);
+    transform: translateX(-50%);
+  }
+
+  .flowline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s2);
+    margin-top: var(--s3);
+  }
+
+  .flowstep {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 18px;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+
+  .flowstep:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sh-2);
+  }
+
+  .flowstep b {
+    display: block;
+    margin: 4px 0 5px;
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 18px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .flowstep .d {
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .demo-note {
+    margin: var(--s3) 0 0;
+    font-size: 14px;
+    color: var(--ink-2);
+    max-width: 74ch;
+  }
+
+  /* ==========================================================================
+   SECTION 04 — BUILD LOG
+   ========================================================================== */
+  .evidence {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s3);
+  }
+
+  .ev {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  }
+
+  .ev:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sh-3);
+    border-color: var(--blue-soft);
+  }
+
+  .ev-body {
+    padding: 20px;
+  }
+
+  .ev-head {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 10px;
+  }
+
+  .ev-head .idx {
+    background: var(--blue-soft);
+    color: var(--blue);
+    border-radius: var(--r-sm);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    letter-spacing: .04em;
+  }
+
+  .ev-head .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex: none;
+  }
+
+  .ev-head h4 {
+    font-size: 19px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--navy);
+  }
+
+  .ev-body p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  .figure {
+    margin-top: 15px;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--surface-2);
+    border: 1px dashed var(--line-2);
+    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: .09em;
+    color: var(--ink-3);
+  }
+
+  .figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ev-foot {
+    margin-top: auto;
+    border-top: 1px solid var(--line);
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .11em;
+    border-radius: var(--r-pill);
+    padding: 4px 11px;
+    background: var(--surface-2);
+    color: var(--ink-3);
+  }
+
+  .chip.hw {
+    background: var(--blue-soft);
+    color: var(--blue);
+  }
+
+  .stat {
+    margin-left: auto;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .11em;
+    font-weight: 600;
+    border-radius: var(--r-pill);
+    padding: 4px 11px;
+    background: var(--green);
+    color: #fff;
+    /* done */
+  }
+
+  .stat.dev {
+    background: var(--orange-soft);
+    color: var(--orange);
+  }
+
+  .stat.val {
+    background: var(--surface-2);
+    color: var(--ink-3);
+  }
+
+  /* ==========================================================================
+   FOOTER
+   ========================================================================== */
+  .foot {
+    background: var(--navy);
+    color: #97A6BD;
+    margin-top: var(--s5);
+    padding: var(--s5) var(--s3);
+    padding-bottom: calc(var(--s5) + env(safe-area-inset-bottom, 0px));
+    border-top: 4px solid var(--orange);
+  }
+
+  .foot-in {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s4);
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: .09em;
+  }
+
+  .foot b {
+    color: #fff;
+  }
+
+  .foot .disc {
+    max-width: 60ch;
+    margin-top: 16px;
+    letter-spacing: 0;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #8595AD;
+  }
+
+  .torque {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: .09em;
+    color: var(--ink-3);
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line-2);
+  }
+
+  /* ==========================================================================
+   RESPONSIVE — per section
+   ========================================================================== */
+
+  /* --- 1100px: grids step down a column --- */
+  @media (max-width: 1100px) {
+
+    /* 01 TEAM */
+    .crew {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 04 BUILD LOG */
+    .evidence {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 03 DEMO */
+    .flowline {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* --- 960px: panels unstack, header reflows --- */
+  @media (max-width: 960px) {
+    :root {
+      --s6: 64px;
+      --s5: 44px;
+    }
+
+    /* 01 TEAM */
+    .specstrip {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .specstrip div:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .specstrip div:nth-child(-n+3) {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .specstrip div:last-child {
+      grid-column: 2 / -1;
+      border-right: 0;
+    }
+
+    .mentors {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 02 PROBLEM -> SOLUTION */
+    .panels {
+      grid-template-columns: 1fr;
+    }
+
+    .branches {
+      grid-template-columns: 1fr;
+    }
+
+    .exhibit-body {
+      padding: var(--s4) 22px var(--s3);
+    }
+
+    .ahta-in,
+    .ahta-top {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  /* --- 720px: nav collapses, everything is one column --- */
+  @media (max-width: 720px) {
+    .rail {
+      padding: 10px 12px;
+    }
+
+    .rail-in {
+      flex-wrap: wrap;
+      padding: 9px 10px;
+    }
+
+    .rail-toggle {
+      display: block;
+    }
+
+    .nav {
+      order: 3;
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      padding-top: 8px;
+    }
+
+    .nav.open {
+      display: flex;
+    }
+
+    .nav a {
+      padding: 12px 14px;
+    }
+
+    .rail-stat {
+      display: none;
+    }
+
+    .brand-logo img,
+    .site-logo img {
+      height: 21px;
+    }
+
+    .brand-logo,
+    .site-logo {
+      padding: 5px 9px;
+    }
+
+    #s01 {
+      padding-top: 104px;
+    }
+
+    /* 01 TEAM */
+    .crew {
+      grid-template-columns: 1fr;
+    }
+
+    .mentors {
+      grid-template-columns: 1fr;
+    }
+
+    /* 03 DEMO */
+    .flowline {
+      grid-template-columns: 1fr;
+    }
+
+    .monitor {
+      padding: 14px;
+    }
+
+    /* 04 BUILD LOG */
+    .evidence {
+      grid-template-columns: 1fr;
+    }
+
+    .panel {
+      padding: var(--s3);
+    }
+  }
+
+  /* --- 520px: compact monitor, tighter type --- */
+  @media (max-width: 520px) {
+    body {
+      font-size: 15px;
+    }
+
+    .wrap {
+      padding: 0 16px;
+    }
+
+    .brand-logo img,
+    .site-logo img {
+      height: 18px;
+    }
+
+    /* 01 TEAM */
+    .specstrip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .specstrip div {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .specstrip div:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .specstrip div:last-child {
+      grid-column: 1 / -1;
+      border-right: 0;
+      border-bottom: 0;
+    }
+
+    .portrait {
+      width: 62px;
+      height: 78px;
+    }
+
+    .exhibit-body {
+      padding: var(--s4) 18px var(--s3);
+    }
+
+    .exhibit-strip {
+      padding: 11px 18px;
+      letter-spacing: .16em;
+    }
+
+    /* 02 */
+    .node {
+      font-size: 10.5px;
+      padding: 10px 12px;
+    }
+
+    .node .tag {
+      display: none;
+    }
+
+    /* keep node names readable on a phone */
+    /* 03 DEMO */
+    .strip {
+      height: 38px;
+    }
+
+    .knob {
+      display: none;
+    }
+
+    /* decorative only — drop before content */
+    .mon-bottom {
+      justify-content: center;
+    }
+
+    .osd {
+      left: 12px;
+      right: 12px;
+      top: 10px;
+      font-size: 9px;
+    }
+
+    /* 04 */
+    .ev-body,
+    .ev-foot {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+    }
+
+    .card:hover,
+    .ev:hover,
+    .mentor:hover,
+    .branch:hover,
+    .flowstep:hover,
+    .node:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<!-- OPENING TRANSITION REMOVED TO PREVENT OVERLAY LOCKING -->
+
+<!-- ============================== NAVIGATION ============================== -->
+<header class="rail" id="rail">
+  <div class="rail-in">
+    <a class="site-logo" href="#s01">
+      <img src="epass-logo-white.png" alt="Team E-PASS Logo">
+    </a>
+
+    <a class="brand-logo" href="#s01">
+      <img src="SIH2026-logo.png" width="833" height="110"
+        alt="Ministry of Education &middot; AICTE &middot; MoE's Innovation Cell &middot; Smart India Hackathon 2026">
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ========================= 01 — TEAM ========================= -->
+  <section class="board" id="s01">
+
+    <div class="secmark">
+      <span class="num">01</span>
+      <span class="name">Team</span>
+      <span class="fill"></span>
+      <span class="tag">06 MEMBERS &middot; 02 MENTORS</span>
+    </div>
+
+    <div class="board-head">
+      <h2>Team E&#8209;PASS</h2>
+      <p class="lead">Six engineers building an automated short-circuit test and waveform-analysis platform for
+        miniature circuit breakers &mdash; control, measurement, analysis and the operator interface.</p>
+    </div>
+
+    <div class="crew">
+
+      <article class="card">
+        <div class="card-accent"></div>
+        <div class="card-top"><span>TEAM MEMBER 01</span><span class="role-tag">VALIDATION</span></div>
+        <div class="card-body">
+          <div class="portrait"><img src="photos/mehnaz.jpg" alt="MEHNAZ SHERIN Z" width="620" height="620"
+              loading="lazy"></div>
+          <div class="fields">
+            <img src="image.png" alt="E-PASS Logo" class="card-logo">
+            <div class="field"><span class="lbl">Name</span><span class="v name">MEHNAZ SHERIN Z</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">Team Lead</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-accent"></div>
+        <div class="card-top"><span>TEAM MEMBER 02</span><span class="role-tag">SOFTWARE</span></div>
+        <div class="card-body">
+          <div class="portrait"><img src="photos/sathya.jpg" alt="SATHYA M" width="620" height="620" loading="lazy">
+          </div>
+          <div class="fields">
+            <img src="image.png" alt="E-PASS Logo" class="card-logo">
+            <div class="field"><span class="lbl">Name</span><span class="v name">SATHYA M</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">Test Sequence Software</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-accent"></div>
+        <div class="card-top"><span>TEAM MEMBER 03</span><span class="role-tag">ANALYSIS</span></div>
+        <div class="card-body">
+          <div class="portrait"><img src="photos/vishva.jpg" alt="VISHVA J" width="620" height="620" loading="lazy">
+          </div>
+          <div class="fields">
+            <img src="image.png" alt="E-PASS Logo" class="card-logo">
+            <div class="field"><span class="lbl">Name</span><span class="v name">VISHVA J</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">Signal Analyst</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-accent"></div>
+        <div class="card-top"><span>TEAM MEMBER 04</span><span class="role-tag">HMI</span></div>
+        <div class="card-body">
+          <div class="portrait"><img src="photos/kaiuf.jpg" alt="KAIUF M" width="620" height="620" loading="lazy"></div>
+          <div class="fields">
+            <img src="image.png" alt="E-PASS Logo" class="card-logo">
+            <div class="field"><span class="lbl">Name</span><span class="v name">KAIUF M</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">HMI &amp; Reporting</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-accent"></div>
+        <div class="card-top"><span>TEAM MEMBER 05</span><span class="role-tag">HARDWARE</span></div>
+        <div class="card-body">
+          <div class="portrait"><img src="photos/winson.jpg" alt="WINSON IMMANUVEL G" width="620" height="620"
+              loading="lazy"></div>
+          <div class="fields">
+            <img src="image.png" alt="E-PASS Logo" class="card-logo">
+            <div class="field"><span class="lbl">Name</span><span class="v name">WINSON IMMANUVEL G</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">Hardware &amp; Control System</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-accent"></div>
+        <div class="card-top"><span>TEAM MEMBER 06</span><span class="role-tag">EMBEDDED</span></div>
+        <div class="card-body">
+          <div class="portrait"><img src="photos/makeshwaran.jpg" alt="MAKESHWARAN R" width="620" height="620"
+              loading="lazy"></div>
+          <div class="fields">
+            <img src="image.png" alt="E-PASS Logo" class="card-logo">
+            <div class="field"><span class="lbl">Name</span><span class="v name">MAKESHWARAN R</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">Hardware &amp; Embedded System</span></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="sub-head">
+      <h3>Mentors</h3>
+      <div class="bar"></div>
+      <span class="lbl">Guidance &amp; Specialization</span>
+    </div>
+
+    <div class="mentors">
+      <div class="mentor">
+        <span class="mno">MENTOR 01</span>
+        <div class="mentor-body">
+          <div class="portrait"><img src="Mentor1.png" alt="Muthusamy K" width="620" height="620" loading="lazy"></div>
+          <div class="fields">
+            <div class="field"><span class="lbl">Name</span><span class="v name">Muthusamy K</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">Faculty Mentor</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mentor">
+        <span class="mno">MENTOR 02</span>
+        <div class="mentor-body">
+          <div class="portrait"><img src="Mentor2.png" alt="Gajendran Parthasarathi" width="620" height="620" loading="lazy"></div>
+          <div class="fields">
+            <div class="field"><span class="lbl">Name</span><span class="v name">Gajendran Parthasarathi</span></div>
+            <div class="field"><span class="lbl">Role</span><span class="v">Faculty Mentor</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 02 — SYSTEM IN ACTION ==================== -->
+  <section class="board" id="s03">
+    <div class="secmark">
+      <span class="num">02</span>
+      <span class="name">System in Action</span>
+      <span class="fill"></span>
+      <span class="tag">REFERENCE &middot; MCB INTERRUPTION</span>
+    </div>
+
+    <div class="board-head">
+      <h2>Explanation</h2>
+    </div>
+
+    <div class="monitor">
+      <div class="screen" id="screen">
+        <canvas id="scope"
+          aria-label="Fault current trace: nominal load, fault inception, peak, and interruption"></canvas>
+        <div class="vignette" aria-hidden="true"></div>
+        <div class="osd" aria-hidden="true">
+          <span>TEST SEQUENCE &middot; RUN 014</span>
+          <span class="r" id="osdRight">TRIG &#9650; FAULT</span>
+        </div>
+        <div class="playbar" id="playbar">
+          <button class="playbtn" id="playbtn"><span class="tri"></span> Play demonstration</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== 03 — PROBLEM -> SOLUTION ==================== -->
+  <section class="board" id="s02">
+    <div class="secmark">
+      <span class="num">03</span>
+      <span class="name">Problem &rarr; Solution</span>
+      <span class="fill"></span>
+      <span class="tag">SIH PROBLEM STATEMENT</span>
+    </div>
+
+    <div class="board-head">
+      <h2>The Problem &rarr; Our Solution</h2>
+      <p class="lead">How short-circuit verification is carried out today, and the automated sequence E&#8209;PASS runs
+        from a single operator command.</p>
+    </div>
+
+    <!-- 1. The Problem Card -->
+    <div class="panel problem" style="margin-bottom: var(--s3);">
+      <div class="panel-head">
+        <span class="eyebrow">CURRENT PRACTICE</span>
+        <h3>The Problem</h3>
+        <div class="sub">Conventional / manually assisted testing</div>
+      </div>
+      <p class="body">MCB breaking-capacity testing as per IEC 60898-1:2015 requires controlled generation of severe short-circuit conditions with precise voltage, current, impedance (R and X<sub>L</sub>), and power factor values across SP, SPN, DP, TP, and FP ratings (0.5 A to 63 A).</p>
+
+      <div class="markers" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); display: grid;">
+        <div class="marker"><span class="mk">MANUAL CONFIGURATION</span><span class="txt">Existing manual methods face challenges in precisely configuring R and X<sub>L</sub> circuit combinations, increasing test time and affecting repeatability.</span></div>
+        <div class="marker crit"><span class="mk">HIGH SAFETY HAZARDS</span><span class="txt">Generation of high fault currents up to 10,000 A introduces severe safety risks to personnel and test equipment when an operator is in the loop.</span></div>
+        <div class="marker"><span class="mk">MULTI-RATING SUPPORT</span><span class="txt">Supporting diverse MCB configurations (SP, SPN, DP, TP, FP) from 0.5 A to 63 A makes manual re-configuration complex and error-prone.</span></div>
+        <div class="marker"><span class="mk">WAVEFORM ANALYSIS GAP</span><span class="txt">Detailed waveform and transient analysis is handled as a separate diagnostic step rather than integrated into the automated test workflow.</span></div>
+        <div class="marker"><span class="mk">DIGITAL TRACEABILITY</span><span class="txt">Maintaining complete digital records of configuration, waveforms, parameters, and daily/weekly test history requires an integrated digital platform.</span></div>
+      </div>
+    </div>
+
+    <!-- 2. Our Solution - Wide Horizontal Block Diagram Section -->
+    <div class="solution-block-wrapper">
+      <div class="panel-head" style="margin-bottom: 14px;">
+        <span class="eyebrow">OUR SOLUTION</span>
+        <h3>E&#8209;PASS System Architecture</h3>
+        <div class="sub">Automated MCB Short-Circuit Test &amp; Hybrid Waveform Analysis Platform</div>
+      </div>
+      <p class="body" style="max-width: 90ch; margin-bottom: 20px;">
+        One operator command initiates the full automated testing sequence. The architecture is organized into 4 connected functional blocks: from HMI parameter configuration and controlled fault generation to high-speed signal capture and AHTA hybrid waveform processing.
+      </p>
+
+      <!-- 4 Horizontal Stage Blocks -->
+      <div class="horizontal-block-grid">
+
+        <!-- BLOCK 01 -->
+        <div class="block-card">
+          <div class="block-header">
+            <span class="block-step">BLOCK 01</span>
+            <span class="block-tag">INPUT &amp; SAFETY</span>
+          </div>
+          <div class="block-title">Control &amp; HMI</div>
+          <div class="block-sub">System interface &amp; safety interlocks</div>
+          <div class="block-list">
+            <div class="block-list-item"><b>Local Web HMI:</b> Parameter entry (MCB type, rating, target I, V, PF).</div>
+            <div class="block-list-item"><b>R &ndash; X<sub>L</sub> Calculator:</b> Computes Z = V/I, R = Z&middot;PF, X<sub>L</sub> = Z&radic;(1-PF&sup2;).</div>
+            <div class="block-list-item"><b>PLC Safety Layer:</b> Manages safety interlocks, enclosure check, &amp; E-Stop.</div>
+            <div class="block-list-item"><b>STM32 Controller:</b> High-speed trigger &amp; test sequence control.</div>
+          </div>
+          <div class="block-footer-badge">&rarr; TRIGGERS FAULT STAGE</div>
+        </div>
+
+        <!-- BLOCK 02 -->
+        <div class="block-card">
+          <div class="block-header">
+            <span class="block-step">BLOCK 02</span>
+            <span class="block-tag">POWER CIRCUIT</span>
+          </div>
+          <div class="block-title">Power Stage</div>
+          <div class="block-sub">Impedance &amp; fault switching</div>
+          <div class="block-list">
+            <div class="block-list-item"><b>Isolated AC Source:</b> Current-limited supply for safe validation.</div>
+            <div class="block-list-item"><b>Selectable R &ndash; X<sub>L</sub> Bank:</b> Automated resistor &amp; inductor step selection.</div>
+            <div class="block-list-item"><b>Schneider Contactor:</b> LC1D18B7 for controlled fault initiation.</div>
+            <div class="block-list-item"><b>Test Fixture:</b> Universal mounting for SP, DP, TP, FP MCBs (0.5A&ndash;63A).</div>
+          </div>
+          <div class="block-footer-badge">&rarr; GENERATES WAVEFORM</div>
+        </div>
+
+        <!-- BLOCK 03 -->
+        <div class="block-card">
+          <div class="block-header">
+            <span class="block-step">BLOCK 03</span>
+            <span class="block-tag">HIGH-SPEED SAMPLING</span>
+          </div>
+          <div class="block-title">Acquisition</div>
+          <div class="block-sub">Sensing &amp; DMA transfer</div>
+          <div class="block-list">
+            <div class="block-list-item"><b>WCS1700 Sensor:</b> Hall-effect current waveform sensing.</div>
+            <div class="block-list-item"><b>Voltage Sensor:</b> Isolated voltage waveform conditioning.</div>
+            <div class="block-list-item"><b>Butterworth Filter:</b> High-frequency noise suppression.</div>
+            <div class="block-list-item"><b>STM32 ADC + DMA:</b> Continuous zero-CPU circular memory buffer.</div>
+          </div>
+          <div class="block-footer-badge">&rarr; FEEDS AHTA ENGINE</div>
+        </div>
+
+        <!-- BLOCK 04 -->
+        <div class="block-card">
+          <div class="block-header">
+            <span class="block-step">BLOCK 04</span>
+            <span class="block-tag">HYBRID ANALYSIS</span>
+          </div>
+          <div class="block-title">AHTA Engine</div>
+          <div class="block-sub">Feature fusion &amp; digital report</div>
+          <div class="block-list">
+            <div class="block-list-item"><b>Fourier Series (FFS):</b> 50 Hz fundamental &amp; harmonic spectrum.</div>
+            <div class="block-list-item"><b>Inverse Fourier (IFFS):</b> Baseline reference waveform reconstruction.</div>
+            <div class="block-list-item"><b>Wavelet (DWT):</b> Transient localization (inception, peak, arc collapse).</div>
+            <div class="block-list-item"><b>Feature Fusion:</b> I<sub>p</sub>, I<sub>RMS</sub>, I&sup2;t, dI/dt, t<sub>trip</sub>, PF evaluation.</div>
+          </div>
+          <div class="block-footer-badge">IEC 60898-1 &rarr; PASS / FAIL</div>
+        </div>
+
+      </div>
+
+      <!-- Horizontal Spec Summary Bar -->
+      <div class="horizontal-spec-bar">
+        <div class="spec-box">
+          <span class="k">ELECTRICAL SOURCE</span>
+          <span class="v">24 V AC Isolated Bench Source (Current-Limited)</span>
+        </div>
+        <div class="spec-box">
+          <span class="k">SWITCHING &amp; CONTROL</span>
+          <span class="v">Schneider LC1D18B7 Contactor &bull; STM32F401RE + PLC</span>
+        </div>
+        <div class="spec-box">
+          <span class="k">WAVEFORM CAPTURE</span>
+          <span class="v">WCS1700 Hall Sensor &bull; ADC + DMA High-Speed Buffer</span>
+        </div>
+        <div class="spec-box">
+          <span class="k">ANALYSIS &amp; TARGET</span>
+          <span class="v">AHTA Engine &bull; 10 kA Class Target (IEC 60898-1)</span>
+        </div>
+      </div>
+    </div>
+  <!-- ==================== 04 — SEE E-PASS WORK ==================== -->
+  <section class="board" id="s04">
+    <div class="secmark">
+      <span class="num">04</span>
+      <span class="name">See E&#8209;PASS Work</span>
+      <span class="fill"></span>
+      <span class="tag">CASE STUDY &middot; PROTOTYPE DEMONSTRATION</span>
+    </div>
+
+    <div class="board-head">
+      <h2>See E&#8209;PASS Work</h2>
+      <p class="lead">Interactive visual case study demonstration of the E-PASS automated short-circuit test station, R-X<sub>L</sub> impedance control, high-speed acquisition, and AHTA waveform analysis.</p>
+    </div>
+
+    <!-- Interactive Engineering Visual Showcase Stage -->
+    <div class="case-study-showcase" id="caseStudySlider">
+
+      <!-- Top Navigation Control Bar -->
+      <div class="showcase-bar">
+        <div class="bar-left">
+          <span class="live-pill"><span class="dot-pulse"></span> PROTOTYPE DEMO</span>
+          <span class="step-badge" id="showcaseStepBadge">STEP 01 / 07</span>
+        </div>
+        <div class="bar-title" id="showcaseTitle">E-PASS Test Bench Setup &amp; Interface</div>
+        <div class="bar-controls">
+          <button type="button" class="sc-btn" id="sliderPrev" title="Previous Step">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            Prev
+          </button>
+          <button type="button" class="sc-btn play-btn" id="sliderPlay" title="Pause / Auto-Play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+          <button type="button" class="sc-btn" id="sliderNext" title="Next Step">
+            Next
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Stage Viewport -->
+      <div class="slider-viewport">
+        <div class="slide active">
+          <img src="case-study/slide-1.jpg" alt="E-PASS Case Study 1" loading="eager" />
+        </div>
+        <div class="slide">
+          <img src="case-study/slide-2.jpg" alt="E-PASS Case Study 2" loading="lazy" />
+        </div>
+        <div class="slide">
+          <img src="case-study/slide-3.jpg" alt="E-PASS Case Study 3" loading="lazy" />
+        </div>
+        <div class="slide">
+          <img src="case-study/slide-4.jpg" alt="E-PASS Case Study 4" loading="lazy" />
+        </div>
+        <div class="slide">
+          <img src="case-study/slide-5.jpg" alt="E-PASS Case Study 5" loading="lazy" />
+        </div>
+        <div class="slide">
+          <img src="case-study/slide-6.jpg" alt="E-PASS Case Study 6" loading="lazy" />
+        </div>
+        <div class="slide">
+          <img src="case-study/slide-7.jpg" alt="E-PASS Case Study 7" loading="lazy" />
+        </div>
+      </div>
+
+      <!-- Interactive Thumbnail Grid Below -->
+      <div class="showcase-thumbs">
+        <button type="button" class="thumb-card active" data-index="0">
+          <div class="thumb-img-wrap"><img src="case-study/slide-1.jpg" alt="Step 1" /></div>
+          <div class="thumb-info">
+            <span class="thumb-num">01</span>
+            <span class="thumb-lbl">Test Bench Setup</span>
+          </div>
+        </button>
+        <button type="button" class="thumb-card" data-index="1">
+          <div class="thumb-img-wrap"><img src="case-study/slide-2.jpg" alt="Step 2" /></div>
+          <div class="thumb-info">
+            <span class="thumb-num">02</span>
+            <span class="thumb-lbl">Impedance Circuit</span>
+          </div>
+        </button>
+        <button type="button" class="thumb-card" data-index="2">
+          <div class="thumb-img-wrap"><img src="case-study/slide-3.jpg" alt="Step 3" /></div>
+          <div class="thumb-info">
+            <span class="thumb-num">03</span>
+            <span class="thumb-lbl">Acquisition Path</span>
+          </div>
+        </button>
+        <button type="button" class="thumb-card" data-index="3">
+          <div class="thumb-img-wrap"><img src="case-study/slide-4.jpg" alt="Step 4" /></div>
+          <div class="thumb-info">
+            <span class="thumb-num">04</span>
+            <span class="thumb-lbl">AHTA Analysis</span>
+          </div>
+        </button>
+        <button type="button" class="thumb-card" data-index="4">
+          <div class="thumb-img-wrap"><img src="case-study/slide-5.jpg" alt="Step 5" /></div>
+          <div class="thumb-info">
+            <span class="thumb-num">05</span>
+            <span class="thumb-lbl">Fault Execution</span>
+          </div>
+        </button>
+        <button type="button" class="thumb-card" data-index="5">
+          <div class="thumb-img-wrap"><img src="case-study/slide-6.jpg" alt="Step 6" /></div>
+          <div class="thumb-info">
+            <span class="thumb-num">06</span>
+            <span class="thumb-lbl">IEC Evaluation</span>
+          </div>
+        </button>
+        <button type="button" class="thumb-card" data-index="6">
+          <div class="thumb-img-wrap"><img src="case-study/slide-7.jpg" alt="Step 7" /></div>
+          <div class="thumb-info">
+            <span class="thumb-num">07</span>
+            <span class="thumb-lbl">Digital Report</span>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <div>
+      <div><b>TEAM E-PASS</b> &middot; SMART INDIA HACKATHON</div>
+      <div style="margin-top:7px;">AUTOMATED MCB SHORT-CIRCUIT TEST &amp; ANALYSIS PLATFORM</div>
+      <div style="margin-top:7px;">TEAM 06 &middot; MENTORS 03 &middot; SYSTEM: PROTOTYPE</div>
+      <div class="disc">
+        AHTA is our proposed prototype methodology, validated on a safe, isolated, current-limited bench. An industrial
+        10&nbsp;kA-class machine would require substantially higher-rated power, switching, sensing, protection and
+        certified test infrastructure.
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <div>DOC. EP&#8209;WEB&#8209;001 &middot; REV. C</div>
+      <div style="margin-top:7px;">SECTIONS 01&ndash;04</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    "use strict";
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- opening transition ----------
+       Holds the SIH title card briefly, then lifts away. Skippable by click,
+       scroll, or Esc; never shown when motion is reduced.
+    -------------------------------------------- */
+    (function () {
+      var intro = document.getElementById('intro');
+      var introSkip = document.getElementById('introSkip');
+      if (!intro) return;
+      if (reduce) { intro.remove(); return; }
+
+      var root = document.documentElement;
+      var timer, gone = false;
+
+      function dismiss() {
+        if (gone) return;
+        gone = true;
+        clearTimeout(timer);
+        intro.classList.add('done');
+        root.classList.remove('intro-lock');
+        window.removeEventListener('wheel', dismiss);
+        window.removeEventListener('touchmove', dismiss);
+        window.removeEventListener('keydown', onKey);
+        setTimeout(function () { if (intro && intro.parentNode) intro.remove(); }, 600);
+      }
+
+      function onKey(e) { dismiss(); }
+
+      timer = setTimeout(dismiss, 1000);
+      intro.addEventListener('click', dismiss);
+      if (introSkip) introSkip.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dismiss();
+      });
+      window.addEventListener('wheel', dismiss, { passive: true });
+      window.addEventListener('touchmove', dismiss, { passive: true });
+      window.addEventListener('keydown', onKey);
+
+      /* never strand the viewer behind the card */
+      setTimeout(dismiss, 1500);
+    })();
+
+    /* ---------- navigation ---------- */
+    var toggle = document.getElementById('navToggle');
+    var list = document.getElementById('navList');
+    if (toggle && list) {
+      toggle.addEventListener('click', function () {
+        var open = list.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      list.addEventListener('click', function (e) {
+        if (e.target.closest('a')) { list.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+      });
+    }
+
+    /* subtle depth change once the page has scrolled */
+    var rail = document.getElementById('rail');
+    if (rail) {
+      var onScroll = function () { rail.classList.toggle('stuck', window.scrollY > 24); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    /* active section */
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+    var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var i = sections.indexOf(en.target);
+          links.forEach(function (a, j) { a.classList.toggle('on', i === j); });
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      sections.forEach(function (s) { if (s) io.observe(s); });
+    }
+
+    /* status readout */
+    var statText = document.getElementById('statText');
+    if (statText) {
+      var msgs = ['SYSTEM READY', 'NO MAGIC. JUST ENGINEERING.', 'CH1 ARMED', 'SYSTEM READY'];
+      var mi = 0;
+      statText.addEventListener('click', function () {
+        mi = (mi + 1) % msgs.length;
+        statText.textContent = msgs[mi];
+      });
+    }
+
+    /* ---------- fault-current record ----------
+       nominal load -> fault inception -> asymmetric peak (15.4 A)
+       -> MCB interruption at t+36 ms -> current collapse
+    -------------------------------------------- */
+    function faultCurrent(t) {
+      var fault = 42, trip = 78, arc = 86;      /* ms marks within the record */
+      var w = 2 * Math.PI * 0.05;               /* 50 Hz, t in ms */
+      if (t < fault) return 1.6 * Math.sin(w * t);
+      if (t < trip) {
+        var k = t - fault;
+        var dc = 9 * Math.exp(-k / 26);
+        return (9.5 * Math.sin(w * t) + dc) * (1 - Math.exp(-k / 1.6));
+      }
+      if (t < arc) {
+        var a = (t - trip) / (arc - trip);
+        var chop = 1 + 0.16 * Math.sin(t * 4.1);
+        return (9.5 * Math.sin(w * t)) * (1 - a) * (1 - a) * chop;
+      }
+      return 0;
+    }
+
+    /* ---------- screen trace ---------- */
+    var cvs = document.getElementById('scope');
+    if (cvs) {
+      var ctx = cvs.getContext('2d');
+      var W = 0, H = 0, dpr = 1, span = 100, sweep = 0, last = 0;
+
+      function resize() {
+        var r = cvs.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = Math.max(300, r.width); H = Math.max(170, r.height);
+        cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function draw(ts) {
+        if (!W) resize();
+        var padL = 16, padR = 16, padT = 40, padB = 30;
+        var gw = W - padL - padR, gh = H - padT - padB;
+        var mid = padT + gh / 2;
+        var aPerPx = 18 / (gh / 2);          /* record peaks at 15.4 A */
+        var i;
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#0D1420'; ctx.fillRect(0, 0, W, H);
+
+        /* graticule */
+        ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (i = 0; i <= 10; i++) { var x = padL + i * (gw / 10) + .5; ctx.moveTo(x, padT); ctx.lineTo(x, padT + gh); }
+        for (i = 0; i <= 8; i++) { var y = padT + i * (gh / 8) + .5; ctx.moveTo(padL, y); ctx.lineTo(padL + gw, y); }
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.beginPath();
+        ctx.moveTo(padL, mid + .5); ctx.lineTo(padL + gw, mid + .5); ctx.stroke();
+
+        /* trace */
+        var n = Math.round(gw);
+        var visible = reduce ? n : Math.round(n * Math.min(sweep, 1));
+        ctx.strokeStyle = '#F08A34'; ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        ctx.shadowColor = 'rgba(240,138,52,.35)'; ctx.shadowBlur = 6;
+        ctx.beginPath();
+        for (i = 0; i <= visible; i++) {
+          var yy = mid - faultCurrent((i / n) * span) / aPerPx;
+          if (i === 0) ctx.moveTo(padL + i, yy); else ctx.lineTo(padL + i, yy);
+        }
+        ctx.stroke(); ctx.shadowBlur = 0;
+
+        if (!reduce && sweep < 1) {
+          ctx.fillStyle = 'rgba(247,178,103,.9)';
+          ctx.fillRect(padL + visible - 1, padT, 2, gh);
+        }
+
+        /* event markers */
+        ctx.font = '10px "IBM Plex Mono", monospace';
+        [[42, 'FAULT', 'rgba(224,110,90,.9)'], [78, 'TRIP', 'rgba(140,175,215,.9)']].forEach(function (m) {
+          var px = padL + (m[0] / span) * gw;
+          if (!reduce && px > padL + visible) return;
+          ctx.strokeStyle = m[2]; ctx.setLineDash([3, 4]); ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(px + .5, padT); ctx.lineTo(px + .5, padT + gh); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = m[2]; ctx.fillText(m[1], px + 5, padT + gh + 16);
+        });
+
+        ctx.fillStyle = 'rgba(160,180,205,.85)';
+        ctx.fillText('Ip 15.4 A', padL, padT + gh + 16);
+        ctx.fillText('t_trip 36 ms', padL + gw - 82, padT + gh + 16);
+
+        if (!reduce) {
+          var dt = last ? (ts - last) : 16; last = ts;
+          sweep += dt / 2800;
+          if (sweep > 1.4) sweep = 0;
+          requestAnimationFrame(draw);
+        }
+      }
+
+      if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); if (reduce) draw(0); }).observe(cvs);
+      else window.addEventListener('resize', function () { resize(); if (reduce) draw(0); });
+
+      resize();
+      if (reduce) draw(0); else requestAnimationFrame(draw);
+    }
+
+    /* ---------- signal strip ---------- */
+    var strip = document.getElementById('sigstrip');
+    if (strip) {
+      var sctx = strip.getContext('2d');
+      var sW = 0, sH = 0, sdpr = 1, phase = 0, slast = 0;
+
+      function sresize() {
+        var r = strip.getBoundingClientRect();
+        sdpr = Math.min(window.devicePixelRatio || 1, 2);
+        sW = Math.max(240, r.width); sH = Math.max(26, r.height);
+        strip.width = Math.round(sW * sdpr); strip.height = Math.round(sH * sdpr);
+        sctx.setTransform(sdpr, 0, 0, sdpr, 0, 0);
+      }
+
+      function sdraw(ts) {
+        if (!sW) sresize();
+        sctx.clearRect(0, 0, sW, sH);
+        var mid = sH / 2;
+        sctx.strokeStyle = 'rgba(255,255,255,.08)'; sctx.lineWidth = 1;
+        sctx.beginPath(); sctx.moveTo(0, mid + .5); sctx.lineTo(sW, mid + .5); sctx.stroke();
+
+        sctx.strokeStyle = '#F08A34'; sctx.lineWidth = 1.6; sctx.lineJoin = 'round';
+        sctx.beginPath();
+        for (var x = 0; x <= sW; x++) {
+          var a = (x + phase) * 0.035;
+          var env = 1 + 0.32 * Math.sin((x + phase) * 0.004);
+          sctx.lineTo(x, mid - Math.sin(a) * (sH * 0.26) * env);
+        }
+        sctx.stroke();
+
+        if (!reduce) {
+          var dt = slast ? (ts - slast) : 16; slast = ts;
+          phase += dt * 0.05;
+          requestAnimationFrame(sdraw);
+        }
+      }
+
+      if ('ResizeObserver' in window) new ResizeObserver(function () { sresize(); if (reduce) sdraw(0); }).observe(strip);
+      else window.addEventListener('resize', function () { sresize(); if (reduce) sdraw(0); });
+
+      sresize();
+      if (reduce) sdraw(0); else requestAnimationFrame(sdraw);
+    }
+
+    /* ---------- demonstration video ----------
+       Set VIDEO_ID to the YouTube id. It then loads when the monitor
+       scrolls into view: autoplay, muted, looping.
+    -------------------------------------------- */
+    var VIDEO_ID = 'G5yoQWT-aMo';
+    var hasVideo = VIDEO_ID !== 'VIDEO_' + 'ID' && VIDEO_ID.length > 0;
+
+    function mountVideo() {
+      var screen = document.getElementById('screen');
+      var bar = document.getElementById('playbar');
+      var osd = document.getElementById('osdRight');
+      if (!screen || screen.querySelector('iframe')) return;
+
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID +
+        '?autoplay=1&mute=1&loop=1&playlist=' + VIDEO_ID +
+        '&controls=1&modestbranding=1&rel=0&playsinline=1';
+      f.title = 'E-PASS demonstration';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      f.setAttribute('allowfullscreen', '');
+      screen.appendChild(f);
+
+      if (bar) bar.remove();
+      if (osd) osd.textContent = 'VIDEO SIGNAL · LOCKED';
+      var c = document.getElementById('scope'); if (c) c.style.visibility = 'hidden';
+    }
+
+    var playbtn = document.getElementById('playbtn');
+    if (hasVideo) {
+      var sec = document.getElementById('s03');
+      if (sec && 'IntersectionObserver' in window) {
+        var vio = new IntersectionObserver(function (en) {
+          if (en[0].isIntersecting) { mountVideo(); vio.disconnect(); }
+        }, { rootMargin: '150px' });
+        vio.observe(sec);
+      } else {
+        mountVideo();
+      }
+      if (playbtn) playbtn.addEventListener('click', mountVideo);
+    } else if (playbtn) {
+      playbtn.addEventListener('click', function () {
+        playbtn.textContent = 'NO RECORDING LOADED — SET VIDEO_ID';
+        playbtn.disabled = true;
+        playbtn.style.opacity = '.65';
+      });
+    }
+
+    /* ---------- Case Study Engineering Showcase ---------- */
+    (function initCaseStudyShowcase() {
+      var slider = document.getElementById('caseStudySlider');
+      if (!slider) return;
+
+      var slides = slider.querySelectorAll('.slide');
+      var thumbs = slider.querySelectorAll('.thumb-card');
+      var thumbsContainer = slider.querySelector('.showcase-thumbs');
+      var prevBtn = document.getElementById('sliderPrev');
+      var nextBtn = document.getElementById('sliderNext');
+      var playBtn = document.getElementById('sliderPlay');
+      var stepBadge = document.getElementById('showcaseStepBadge');
+      var titleElem = document.getElementById('showcaseTitle');
+
+      if (!slides.length) return;
+
+      var titles = [
+        "E-PASS Test Bench Setup & Interface",
+        "Controlled Fault Circuit & Impedance Configuration",
+        "Waveform Acquisition & Sensor Calibration",
+        "AHTA Waveform Analysis & Feature Extraction",
+        "Short-Circuit Test Execution & Transient Recording",
+        "IEC 60898-1 Performance Evaluation & Results",
+        "Digital Test Report & Traceability Verification"
+      ];
+
+      var currentIndex = 0;
+      var isPlaying = true;
+      var timer = null;
+
+      function goToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+
+        slides.forEach(function (s, i) {
+          if (i === index) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+
+        thumbs.forEach(function (t, i) {
+          if (i === index) {
+            t.classList.add('active');
+            if (thumbsContainer) {
+              var containerWidth = thumbsContainer.clientWidth;
+              var thumbLeft = t.offsetLeft;
+              var thumbWidth = t.offsetWidth;
+              thumbsContainer.scrollTo({
+                left: thumbLeft - (containerWidth / 2) + (thumbWidth / 2),
+                behavior: 'smooth'
+              });
+            }
+          } else {
+            t.classList.remove('active');
+          }
+        });
+
+        if (stepBadge) {
+          stepBadge.textContent = 'STEP ' + String(index + 1).padStart(2, '0') + ' / 07';
+        }
+        if (titleElem && titles[index]) {
+          titleElem.textContent = titles[index];
+        }
+
+        currentIndex = index;
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        isPlaying = true;
+        updatePlayBtn();
+        timer = setInterval(nextSlide, 4500);
+      }
+
+      function stopAutoPlay() {
+        isPlaying = false;
+        updatePlayBtn();
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function updatePlayBtn() {
+        if (!playBtn) return;
+        if (isPlaying) {
+          playBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+          playBtn.setAttribute('title', 'Pause Showcase');
+        } else {
+          playBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+          playBtn.setAttribute('title', 'Play Showcase');
+        }
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          prevSlide();
+          stopAutoPlay();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          nextSlide();
+          stopAutoPlay();
+        });
+      }
+
+      if (playBtn) {
+        playBtn.addEventListener('click', function () {
+          if (isPlaying) {
+            stopAutoPlay();
+          } else {
+            startAutoPlay();
+          }
+        });
+      }
+
+      thumbs.forEach(function (thumb) {
+        thumb.addEventListener('click', function () {
+          var idx = parseInt(this.getAttribute('data-index'), 10);
+          if (!isNaN(idx)) {
+            goToSlide(idx);
+            stopAutoPlay();
+          }
+        });
+      });
+
+      slider.addEventListener('mouseenter', function () {
+        if (timer) clearInterval(timer);
+      });
+
+      slider.addEventListener('mouseleave', function () {
+        if (isPlaying) startAutoPlay();
+      });
+
+      startAutoPlay();
+    })();
+  })();
+</script>

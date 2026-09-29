@@ -551,7 +551,7 @@
     scroll-margin-top: 92px;
   }
 
-  #s01 {
+  #s03 {
     padding-top: 116px;
   }
 
@@ -2411,7 +2411,7 @@
       padding: 5px 9px;
     }
 
-    #s01 {
+    #s03 {
       padding-top: 104px;
     }
 
@@ -2558,11 +2558,11 @@
 <!-- ============================== NAVIGATION ============================== -->
 <header class="rail" id="rail">
   <div class="rail-in">
-    <a class="site-logo" href="#s01">
+    <a class="site-logo" href="#s03">
       <img src="epass-logo-white.png" alt="Team E-PASS Logo">
     </a>
 
-    <a class="brand-logo" href="#s01">
+    <a class="brand-logo" href="#s03">
       <img src="SIH2026-logo.png" width="833" height="110"
         alt="Ministry of Education &middot; AICTE &middot; MoE's Innovation Cell &middot; Smart India Hackathon 2026">
     </a>
@@ -2571,11 +2571,41 @@
 
 <main class="wrap">
 
-  <!-- ========================= 01 — TEAM ========================= -->
+  <!-- ==================== 01 — SYSTEM IN ACTION ==================== -->
+  <section class="board" id="s03">
+    <div class="secmark">
+      <span class="num">01</span>
+      <span class="name">System in Action</span>
+      <span class="fill"></span>
+      <span class="tag">REFERENCE &middot; MCB INTERRUPTION</span>
+    </div>
+
+    <div class="board-head">
+      <h2>Explanation</h2>
+    </div>
+
+    <div class="monitor">
+      <div class="screen" id="screen">
+        <canvas id="scope"
+          aria-label="Fault current trace: nominal load, fault inception, peak, and interruption"></canvas>
+        <div class="vignette" aria-hidden="true"></div>
+        <div class="osd" aria-hidden="true">
+          <span>TEST SEQUENCE &middot; RUN 014</span>
+          <span class="r" id="osdRight">TRIG &#9650; FAULT</span>
+        </div>
+        <div class="playbar" id="playbar">
+          <button class="playbtn" id="playbtn"><span class="tri"></span> Play demonstration</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========================= 02 — TEAM ========================= -->
   <section class="board" id="s01">
 
     <div class="secmark">
-      <span class="num">01</span>
+      <span class="num">02</span>
       <span class="name">Team</span>
       <span class="fill"></span>
       <span class="tag">06 MEMBERS &middot; 02 MENTORS</span>
@@ -2703,36 +2733,6 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ==================== 02 — SYSTEM IN ACTION ==================== -->
-  <section class="board" id="s03">
-    <div class="secmark">
-      <span class="num">02</span>
-      <span class="name">System in Action</span>
-      <span class="fill"></span>
-      <span class="tag">REFERENCE &middot; MCB INTERRUPTION</span>
-    </div>
-
-    <div class="board-head">
-      <h2>Explanation</h2>
-    </div>
-
-    <div class="monitor">
-      <div class="screen" id="screen">
-        <canvas id="scope"
-          aria-label="Fault current trace: nominal load, fault inception, peak, and interruption"></canvas>
-        <div class="vignette" aria-hidden="true"></div>
-        <div class="osd" aria-hidden="true">
-          <span>TEST SEQUENCE &middot; RUN 014</span>
-          <span class="r" id="osdRight">TRIG &#9650; FAULT</span>
-        </div>
-        <div class="playbar" id="playbar">
-          <button class="playbtn" id="playbtn"><span class="tri"></span> Play demonstration</button>
-        </div>
-      </div>
-    </div>
-
   </section>
 
   <!-- ==================== 03 — PROBLEM -> SOLUTION ==================== -->
@@ -3255,7 +3255,7 @@
        Set VIDEO_ID to the YouTube id. It then loads when the monitor
        scrolls into view: autoplay, muted, looping.
     -------------------------------------------- */
-    var VIDEO_ID = 'G5yoQWT-aMo';
+    var VIDEO_ID = 'nYXRW_kWUBo';
     var hasVideo = VIDEO_ID !== 'VIDEO_' + 'ID' && VIDEO_ID.length > 0;
 
     function mountVideo() {
